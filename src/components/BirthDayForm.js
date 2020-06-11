@@ -1,0 +1,76 @@
+import React, { Component } from "react";
+import DatePicker from 'react-datepicker'
+import moment from "moment";
+import Clock from './Clock'
+
+class BirthDayForm extends React.Component{
+    constructor(props){
+        super(props);
+
+        this.handleChange=this.handleChange.bind(this);
+        this.handleGenerate=this.handleGenerate.bind(this);
+        this.handleChangeDate=this.handleChangeDate.bind(this);
+
+
+
+        this.state = {
+            startDate: moment(),
+            formCompleted: false
+
+
+        }
+
+    }
+
+    handleChange(date){
+      this.setState({
+          startDate: date
+      })
+    
+    }
+
+    handleGenerate(){
+        this.setState({
+            formCompleted:true
+        })
+
+    }
+
+    handleChangeDate(){
+        this.setState({
+            formCompleted:false
+        })
+
+    }
+
+
+    render() {
+        return(
+        <div>
+            {
+                this.state.formCompleted ? 
+                <div>
+                <Clock BirthDayFormState={this.state} />
+                <a className='change-date' onClick={this.handleChangeDate}>change date</a>
+
+                </div>
+                :
+
+                <div>
+                <DatePicker
+                selected={this.state.startDate}
+                onChange={this.handleChange}
+
+            />
+              <a onClick={this.handleGenerate}>Generate Countdown</a>
+             </div>
+
+            }
+
+
+        </div>
+        );
+    }
+}
+
+export default BirthDayForm;
